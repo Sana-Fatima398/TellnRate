@@ -1,0 +1,71 @@
+﻿@using Review_Rating.Models;
+@model List<Review>
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<style>
+    .custom{
+        background:rgb(50,50,50);
+    }
+</style>
+
+<div class="container">
+
+    <div class="row col-auto m-4 ">
+       @{ <h3>@ViewBag.Name<!--model-Content Name--></h3>  }
+        <h1>User Reviews</h1>
+    </div>
+
+    <hr/>
+
+    <div class="container">
+
+
+        @{
+            if(Model.Any()){
+                foreach (var obj in Model)
+                {
+                                <div class="custom row gy-3 px-3 my-5 rounded-3">
+
+                                    <h5>@obj.UserName</h5><!--model-User Name-->
+                                    <hr>
+                                    <h5>Overall Rating</h5><!--model-Review rating-->
+
+
+                                    <div class="row px-4 my-1">
+
+                                            <p class="col-3 border px-5 py-1">Story<span class="offset-4">@obj.Story</span>/10</p>
+                                            <p class="col-3 border px-5 py-1">Acting<span class="offset-4">@obj.Acting</span>/10</p>
+                                            <p class="col-3 border px-5 py-1">Music<span class="offset-4">@obj.Music</span>/10</p>
+                                            <p class="col-3 border px-5 py-1">Rewtch<span class="offset-4">@obj.RewatchValue</span>/10</p>
+
+                                    </div>
+
+                                    <div class="row col-auto px-3 py-3">
+
+                                        <h5>Review:</h5>
+                                        <p class="fst-italic" style="color:#90EE90;">@obj.Headline<!-- Review headline --> </p>
+
+                                        <p>
+                                        <!--REview descritiopn--->
+                                @obj.Explanation              
+                                        </p>
+
+                                    </div>
+                                </div>
+                }
+            }
+            else{
+                <div>
+                   <h4>Be the first one to make the Review. <a asp-controller="Review" asp-action="AddReview" asp-route-id="@ViewBag.id" asp-route-name="@ViewBag.Name" class="text-success mt-2" >Add Review now</a> </h4>
+                </div>
+            }
+            
+        }
+
+
+    </div>
+
+</div>
+

@@ -1,0 +1,40 @@
+﻿@model List<Content>
+
+
+
+<div class="container mb-5">
+
+    <div class="row gx-4 gy-5">
+        @{
+            if (Model != null && Model.Any())
+            {
+                foreach (var obj in Model)
+                {
+                    <div class="col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                        <div class="card text-white" style="background-color: rgb(50,50,50);width: 18rem;">
+
+                            <img src="@obj.ImageLink" class="card-img-top img-fluid" style="height: 320px; object-fit: cover;" alt="...">
+                            <div class="card-body text-center">
+                                <form action="/Content/Display" method="get">
+                                    <input type="hidden" name="ID" value="@obj.ID">
+                                    <input type="submit" class="card-title text-light" style="all:unset;font-size:20px;text-decoration:none;background-color: rgb(50,50,50)" value="@obj.Name">
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+            else { 
+                <div class="mt-5">
+                    <h3>No results found.</h3>
+                </div>
+            }
+        }
+           
+
+
+    </div>
+</div>
+

@@ -1,0 +1,100 @@
+﻿@using Review_Rating.Models;
+@model List<Content>
+@{
+
+    ViewData["Title"] = "Home Page";
+
+}
+
+
+<style>
+    .front {
+        width: 100%;
+        height: 100vh;
+        box-sizing: border-box;
+
+        background: url("/images/img2a.jpg");
+        -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+
+        }
+    .glass-container{
+        text-align: center;
+        padding: 100px;  
+        backdrop-filter: blur(20px);
+        width: 100%;
+        height: 100%;
+    }
+
+    h1 {
+        font-size: 85px;
+        margin-bottom:20px;
+        color:rgb(50,50,50);
+    }
+
+    .customColor{
+        font-size: 20px;
+        margin-bottom:20px;
+        color:rgb(50,50,50);
+    }
+
+    
+        @@font-face {
+  font-family: 'KingRamba';
+  src: url('/fonts/KingRimba.ttf') format('truetype');
+}
+
+.word-logo {
+  font-family: 'KingRamba', sans-serif;
+  font-size: 45px;
+    line-height: 1;
+  letter-spacing:3px;
+}
+.change{
+font-size:100px;}
+</style>
+
+<div class="front">
+    <div class="glass-container ">
+
+        <!--<h1>WELCOME</h1>-->
+        <div class="word-logo text-success change ">TellnRate</div>
+        <h5 class="text-success mt-5">
+            Join us to rate, review, and explore
+
+        </h5>
+        <h5 class="text-success">the world of cinema like never before!</h5>
+         <a class="customColor nav-link " asp-area="Identity" asp-page="/Account/Register">Sign up to start now!</a>
+    </div>
+   
+</div>
+<h2 class="fw-bold mb-5 mx-5">Latest Movies/Series</h2>
+
+
+<div class="container mt-5 mb-5 pt-4 py-5">
+
+    <div class="row gx-4 gy-5">
+        @{
+               
+            foreach (var obj in Model)
+                        {
+                        <div class="col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                            <div class="card text-white" style="background-color: rgb(50,50,50);width: 18rem;">
+
+                            <img src="@obj.ImageLink" class="card-img-top img-fluid" style="height: 320px; object-fit: cover;" alt="...">
+                            <div class="card-body text-center">
+                                <form action="/Content/Display" method="get">
+                                    <input type="hidden" name="ID" value="@obj.ID">
+                                    <input type="submit" class="card-title text-light" style="all:unset;font-size:20px;text-decoration:none;background-color: rgb(50,50,50)" value="@obj.Name">
+
+                            </form>
+                        </div>
+                    </div>
+            </div>
+            }
+              
+        }
+     
+
+    </div>
+</div>

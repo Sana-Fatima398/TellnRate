@@ -1,0 +1,88 @@
+﻿@model Dictionary<string, int>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+    <style>
+
+
+        .dashboard{
+            color:white;
+            margin-left:220px;
+        }
+
+        .box{
+
+            height:450px;
+            width:800px;
+            margin: 5px 60px;
+            padding: 0px 50px;
+            
+
+        }
+
+        .smallbox{
+            border: 1px dashed white;
+            height:170px;
+            width: 300px;
+            display:flex;
+            margin: 0px 30px;
+            border-radius: 15px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+
+        }
+        .longbox{
+              border: 1px dashed white;
+            height:230px;
+            width: 670px;
+            display:flex;
+            margin: 30px 25px;
+            border-radius: 15px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
+
+
+
+
+
+   <div class="dashboard">
+       <h1 class="py-5 px-5">DashBoard</h1>
+       @{
+
+       <div class="box">
+           <div class="row">
+            <div class="smallbox row">
+                <div class="w-100 h-50"><p class="p-2"style="font-size:40px;">Content <span class="text-success" style="font-size:25px;">Count</span></p></div>
+               <div class="w-100 h-50"><p class="px-3 py-1 text-end" style="font-size:40px">@Model["contents"]</p></div>
+            </div>
+            <div class="smallbox row">
+                <div class="w-100 h-50"><p class="p-2" style="font-size:40px;">User <span class="text-success" style="font-size:25px;">Count</span></p></div>
+                    <div class="w-100 h-50"><p class="px-3 py-1 text-end" style="font-size:40px">@Model["users"]</p></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="longbox row">
+                <div class="row w-100 h-50"><p class="p-3" style="font-size:40px;">Interaction <span class="text-success" style="font-size:25px;">Count</span></p></div>
+                <div class="row w-100 h-50 justify-content-end">
+
+                    <div class="h-75 w-25 mx-2 border rounded-2">
+                        <div class="w-100 h-50 "><p class=" text-success" style="font-size:25px;">Review</p></div>
+                            <div class="w-100 h-50 "><p class="text-end" style="font-size:25px;">@Model["reviews"]</p></div>
+                    </div>
+                    <div class="h-75 w-25 mx-3 border rounded-2">
+                        <div class="w-100 h-50 "><p class=" text-success" style="font-size:25px;">Rating  </p></div>
+                            <div class="w-100 h-50 "><p class="text-end" style="font-size:25px;">@Model["ratings"]</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       </div>
+       }
+   </div>
+

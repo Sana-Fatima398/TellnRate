@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using Review_Rating.Models;
+@model List<Content>
+
+
+<head>
+
+
+    <style>
+        .custom {
+            margin: 4px 5px;
+        }
+  
+        .customizedLayout{
+            margin-left: 260px; 
+            padding: 20px;
+            width: calc(100% - 260px); 
+            overflow-x: hidden;
+       }
+
+
+    </style>
+</head>
+
+
+
+  
+
+
+    <div class="customizedLayout container text-light">
+    @{
+        if (TempData["Message"] != null)
+        {
+                <div class="alert alert-success">
+                @TempData["Message"]
+                </div>
+        }
+    }
+        <h1 class="fw-bold my-5">Content List</h1>
+        
+        <table class="table table-dark table-striped table-hover border-dark">
+            <thead class="border">
+                <tr>
+                    <th scope="col" class="px-5">Content ID</th>
+                <th scope="col" class="px-5">Content Name</th>
+                <th scope="col" class="px-5">Type</th>
+                <th scope="col" class="px-5">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            @{
+                foreach(var obj in Model){
+                    <tr>
+                        <th scope="row" class="px-5">@obj.ID</th><!--contentid by using model clasees-->
+                        <td class="px-5">@obj.Name</td><!--contentnamme-->
+                        <td class="px-5">@obj.Type</td><!--contenttype-->
+                        
+                        <td class="px-5">
+                                    <a asp-controller="Content" asp-action="UpdateContent"  asp-route-id="@obj.ID" class="custom btn btn-success btn-sm">Update</a>
+                            <form action="/Content/DeleteContent" method="POST" class="d-inline">
+                                <input type="hidden" name="contentId"   value="@obj.ID"/>
+                              
+                                <button type="submit" class="custom btn btn-outline-danger btn-sm" >Remove</button>
+                            </form>
+                           
+                        </td>
+
+                    </tr>
+                }
+            }
+
+
+               
+            </tbody>
+        </table>
+    </div>
+

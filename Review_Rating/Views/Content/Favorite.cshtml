@@ -1,0 +1,56 @@
+﻿
+ @model List<Content> 
+
+@{
+    ViewData["Title"] = "Favorites";
+}
+
+
+
+<div class="container-fluid my-5">
+    <h1 class="fw-bold mx-5">Favorites</h1>
+    <div class="row mx-5 my-4 gy-5">
+
+
+        @{
+            if (Model.Any()) {
+                foreach (var i in Model)
+                {
+                          <div class="col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                            <div class="card text-white" style="background-color: rgb(50,50,50);width: 14rem;">
+
+                                <img src="@i.ImageLink" class="card-img-top img-fluid" style="height: 250px; object-fit: cover;" alt="...">
+
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">@i.Name</h5>
+
+
+                                    <form action="/Content/Display" method="get">
+                                        <input type="hidden" name="ID" value="@i.ID">
+                                        <input type="submit" class="btn btn-light w-75 my-2" value="See More">
+
+                                    </form>
+
+                                    <form action="/Content/RemoveFav" method="post">
+                                        <input type="hidden" name="ID" value="@i.ID">
+                                        <button type="submit" class="btn btn-success w-75 my-1">Remove</button>
+                                    </form>
+
+                                </div>
+
+                             </div>
+                         </div>
+                }
+            }
+            else {
+                <div><h4>Your Favorite is empty! <a asp-controller="Content" asp-action="GetContent" class="text-success mt-2" >Get Started by adding your favorites</a></h4></div>
+            }
+           
+            
+        }
+
+
+     
+
+    </div>
+</div>

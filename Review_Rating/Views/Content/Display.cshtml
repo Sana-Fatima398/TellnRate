@@ -1,0 +1,288 @@
+﻿@using Review_Rating.Models;
+@model Content
+<head>
+
+    <style>
+        .correction {
+            text-align: end;
+        }
+
+        .modal-content {
+            background-color: #212529;
+            color: white;
+            border: 1px solid #343a40;
+        }
+
+        .modal-header, .modal-footer {
+            border-color: #495057;
+        }
+
+        .btn-close {
+            filter: invert(1);
+        }
+        p.hidden{
+            display:none;
+        }
+
+    </style>
+</head>
+
+<div class="modal fade" id="rateModal" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rating">Rating</h5>
+
+            </div>
+
+            <form action="/Content/Rate" method="post">
+                <div class="modal-body">
+
+
+                    <label class="form-label">Rate the content: <span id="ratingScore">0</span>/10</label>
+                    <input type="range" class="form-range pb-4" min="0" max="10" step="1" name="rating" id="ratingRange" oninput="updateOverall()">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <input type="hidden" name="contentId" value="@Model.ID" />
+                    <button type="submit" class="form-control btn btn-success w-25" id="ratebutton" onclick="func()">Rate</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mx-5 my-4 gy-3 ">
+        <div class="col-md-5 mx-5 px-5  ">
+            <img src="@Model.ImageLink" class="img-fluid" style="object-fit:cover;border: 10px solid rgba(255, 255, 255,0.5);" width="300" height="150" alt="image @Model.Name">
+        </div>
+        <div class="col-md-5 my-5 justify-content-center">
+                @{
+                    <h1>@Model.Name</h1>
+                    // Name here Model.Name, Model.Genre etc
+                    <h4>@Model.ReleaseYear</h4>
+                    <h4>@Model.Type</h4>
+                    <br>
+                <h4>@Model.Genre</h4>
+
+                if (@Model.Reviews.Any())
+                {
+                    float sum = 0;
+                    foreach (var k in @Model.Reviews)
+                    {
+                        sum += k.Story;
+                        sum += k.RewatchValue;
+                        sum += k.Music;
+                        sum += k.Acting;
+
+                    }
+                    float count = @Model.Reviews.Count;
+                    float calculatedRating = sum / (4 * count);
+                    <h4>Ratings: @calculatedRating.ToString("F1")/10</h4>
+                    }
+                else
+                {
+                     <h4>Ratings: 0/10</h4>
+
+                }
+                   
+
+                    <h4>Reviews: @Model.Reviews.Count</h4>
+                    // Review count here
+                    <div class="row my-3 gy-3 justify-content-center">
+                        <form action="/Content/AddToFavorite" method="post" class="inline-form ms-5">
+                             <input type="hidden" name="contentId" value="@Model.ID">
+                             <button type="submit" class="btn btn-light w-75" >Add to Favorite</button>
+
+                          <!--  <button type="button" class="btn btn-success w-75 my-3" data-bs-toggle="modal" data-bs-target="#rateModal"><p id="hiddenRate" class="hidden"><span id="xyz">0</span>/10</p>Rate</button>-->
+                        </form>
+                
+                    </div>
+                }
+
+        </div>
+    </div>
+
+
+
+
+
+    <hr>
+    <div class="container-fluid mx-2 my-5">
+
+            @{
+                //p will be repalec by @Model.Description code to get dynammic plot summary
+                <h1 class="py-3">Plot Summary</h1>
+                <p style="font-size:20px">
+                    @Model.PlotSummary
+                </p>
+            }
+
+    </div>
+<hr>
+<!--
+     Embed YouTube Video-->
+    <div class="container-fluid  m-auto my-5 ">
+        <h1 class="py-3">Trailer</h1>
+
+
+        <div class="ratio ratio-16x9">
+
+            <iframe width="560" height="315" class="rounded-3" src="@Model.TrailerLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <hr>
+
+    <!-- only top two reiew will be shown here-->
+    <div class="container-fluid mx-2 mt-5 mb-3">
+        @{
+
+        }
+        <div class="row rounded-3" style="background-color:rgb(50,50,50); height:60px;">
+            <div class="col m-auto">
+                <h2 class="mt-1 ms-1">User Reviews</h2>
+            </div>
+
+
+        </div>
+
+        <div class="custom row gy-3 px-3 my-3 rounded-3" style="background-color:rgb(50,50,50)">
+
+            @{
+              
+                if (@Model.Reviews.Any())
+                {
+                     foreach (var k in @Model.Reviews)
+                     { 
+                         <h5>@k.UserName</h5>
+                         <hr>
+                         
+                         <h5>Overall Rating</h5>
+
+                         <!--model-Review rating-->
+
+                         <div class="row px-4 my-1"> 
+
+                            <p class="col-3 border px-5 py-1">Story<span class="offset-4">@k.Story</span>/10</p>
+                            <p class="col-3 border px-5 py-1">Acting<span class="offset-4">@k.Acting</span>/10</p>
+                            <p class="col-3 border px-5 py-1">Music<span class="offset-4">@k.Music</span>/10</p>
+                            <p class="col-3 border px-5 py-1">Rewatch<span class="offset-4">@k.RewatchValue</span>/10</p>
+
+                        </div>
+
+                        <div class="row col-auto px-3 py-3">
+
+                            <h5>Review:</h5>
+
+                             <p class="fst-italic" style="color:#90EE90;">
+
+                                  @k.Headline
+                             </p>
+
+                             <p>
+                                @k.Explanation
+                            </p>
+
+                        </div>
+                        break;
+                    }
+                    
+                 }
+                else
+                {
+                    <div>
+                        <h4 class="pb-3">No Review Yet. Be the first one to add the Review</h4>
+                    </div>
+                    
+                }
+                
+
+            }
+           
+
+           
+          
+</div>
+        @{
+                <a asp-controller="Review" asp-action="ReviewView" asp-route-id="@Model.ID" asp-route-name="@Model.Name" class="btn btn-success mx-2 mt-2">See More</a>
+
+                <a asp-controller="Review" asp-action="AddReview" asp-route-id="@Model.ID" asp-route-name="@Model.Name" class="btn btn-outline-success mt-2">Add Your Review</a>
+        }
+   
+
+
+<br>
+<br>
+<hr>
+<div class="container mx-2 my-5">
+
+    <div class="row rounded-3" style="background-color:rgb(50,50,50); height:60px;">
+        <h2 class="mt-2 ms-1">Comments</h2>
+    </div>
+
+    <div class="mb-3 mt-3">
+        <input type="hidden" id="contentId" value="@Model.ID" />
+        <textarea id="commentStatement" name="commentStatement" class="form-control" placeholder="Write a comment..."></textarea>
+        <input type="button" id="postComment" class="btn btn-success mt-2" value="Post Comment">
+    </div>
+
+
+    <div class="container-fluid px-5 py-4 rounded-2" style="background-color:rgb(50,50,50);">
+
+        <div class="row">
+                <div class="col-12 px-3 py-1" id="commentList">       
+            </div>
+        </div>
+            @{
+                if (@Model.Comments.Any())
+                {
+                    foreach (var c in @Model.Comments) { 
+                     <div class="row col-auto border-bottom px-3 py-1">
+                         <p class="pt-2"><strong>@c.UserName: </strong> @c.Statement</p>
+                    </div>
+                    }
+                }
+                else{
+                    <div class="row col-auto px-3 py-1">
+                        <h5 class="">Be the first one to Comment!!</h5>
+                    </div>
+                }
+            }
+        
+
+
+    </div>
+</div>
+
+
+
+</div>
+
+
+<script>
+    function updateOverall() {
+        let val = document.getElementById("ratingRange").value;
+        document.getElementById("ratingScore").innerText = val;
+
+    }
+
+    function showUpdate() {
+
+        let ans = document.getElementById("ratingScore").value;
+        document.getElementById("xyz").innerText = ans;
+        document.getElementById("hiddenRate").classList.remove("hidden");
+    }
+
+    const modal = document.getElementById("rateModal");
+        function func() {
+        let ans = document.getElementById("ratingScore").value;
+        document.getElementById("xyz").innerText = ans;
+        document.getElementById("hiddenRate").classList.remove("hidden");
+
+        modal.style.display = "none";
+    }
+</script>

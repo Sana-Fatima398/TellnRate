@@ -1,0 +1,120 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Reviews_Rating</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Reviews_Rating.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <style>
+
+
+         .sidebar{
+             position: fixed;
+             left: 0;
+             width: 250px;
+             height: 100vh;
+             background: rgb(50, 50, 50);
+             color: white;
+             display: block;
+             box-shadow: 4px 0 8px 0 rgba(0, 0, 0, 0.2), 6px 0  20px 0 rgba(0, 0, 0, 0.19);
+             border-radius: 0 25px 25px 0;
+         }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+
+        }
+        .mark{
+            display: block;
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+            background-color: rgb(50, 50, 50);
+            font-size: 18px;
+            
+        }
+           .img-button {
+      border: none;
+      background: none;
+      padding: 0;
+    
+      cursor: pointer;
+    }
+
+    .img-button img {
+      width: 80px; 
+      transition: transform 0.2s;
+    }
+
+    .img-button img:hover {
+      transform: scale(1.1);
+    }
+        @@font-face {
+  font-family: 'KingRamba';
+  src: url('/fonts/KingRimba.ttf') format('truetype');
+}
+
+.word-logo {
+  font-family: 'KingRamba', sans-serif;
+  font-size: 50px;
+  letter-spacing:3px;
+  
+}
+
+
+    </style>
+</head>
+<body class="container bg-dark">
+    <div class="row">
+    <div class="sidebar ">
+        <div>
+              <button class="img-button ms-3 ps-5 pt-5">
+                    <img src="~/images/movie Sign up page logo.png" alt="Click me">
+              </button>
+              <div class="word-logo text-success ms-2 ps-4">TellnRate</div>
+             
+        </div>
+      
+        <div class="mark row col-auto">
+            <a asp-controller="Content" asp-action="ToAdmin">Dashboard</a>
+        </div>
+        <div class="mark row col-auto">
+            <a asp-controller="Content" asp-action="AddContent">Add Content</a>
+        </div>
+        <div class="mark row col-auto">
+            <a asp-controller="Content" asp-action="ContentList">Content List</a>
+        </div>
+        <div class="mark row col-auto">
+            <a asp-controller="User" asp-action="UserList">View Users</a>
+        </div>
+        <div class="mark row col-auto">
+             <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+               <button  type="submit" class="text-light" style="all:unset;text-decoration:none;background-color: rgb(50,50,50)">Logout</button>
+             </form>
+        </div>
+    </div>
+    <div class="container col-md-12 pb-3">
+        <main role="main" class="">
+            @RenderBody()
+        </main>
+    </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

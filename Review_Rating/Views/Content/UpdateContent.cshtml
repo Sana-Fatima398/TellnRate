@@ -1,0 +1,87 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using Review_Rating.Models;
+@model Content
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<style>
+    .customizedLayout{
+        margin-left: 260px; 
+        padding: 20px;
+        width: calc(100% - 260px); 
+        overflow-x: hidden;
+       }
+</style>
+
+
+<div class="customizedLayout container text-light">
+    <h1 class="my-5 fw-bold">Update Content</h1>
+    <h3 class="my-3 fw-bold">@Model.ID: @Model.Name</h3> <!-- Content id will be shown by session handling-->
+    <form action="/Content/Change" method="POST">
+        <input type="hidden" name="ID" value="@Model.ID" />
+        <div class="my-5">
+            <div class="mb-3">
+                <label for="name" class="form-label fw-semibold">Name:</label>
+                <input type="text" class="form-control w-50" id="name" name="Name" value="@Model.Name" >
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label fw-semibold">Plot Summary:</label>
+                <textarea class="form-control" id="description" name="PlotSummary" rows="3" columns="20" required>@Model.PlotSummary</textarea>
+            </div>
+        </div>
+
+        <hr>
+        <div class="my-5">
+            <div class="mb-3">
+                    <label class="fw-semibold my-1">Select the Content Type</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Type" id="movie" value="movie" checked>
+                    <label class="form-check-label" for="movie">Movie</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Type" id="show" value="show">
+                    <label class="form-check-label" for="show">Show (TV Shows / Dramas / Series)</label>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                    <label for="genre" class="form-label fw-semibold">Genre</label>
+                <select class="form-select w-25" id="genre" name="genre" value="@Model.Genre" required>
+                    <option disabled>Select Genre</option>
+                    <option value="Action">Action</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Comedy">Comedy</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                    <label for="releaseYear" class="form-label fw-semibold">Release Year</label>
+                <input type="number" class="form-control w-25" id="releaseYear" name="releaseYear" min="1920" max="2025" value="@Model.ReleaseYear" required>
+            </div>
+
+        </div>
+
+        <hr>
+        <div class="mb-4">
+            <label for="name" class="form-label fw-semibold">Trailer Link </label>
+            <input type="text" class="form-control  w-50" id="trailer" name="TrailerLink" value="@Model.TrailerLink" required>
+        </div>
+
+        <div class="mb-5">
+            <label for="name" class="form-label fw-semibold">Image Link </label>
+            <input type="text" class="form-control  w-50" id="image" name="ImageLink" value="@Model.ImageLink" required>
+        </div>
+
+        <hr>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-success w-50 my-5">Update</button>
+        </div>
+    </form>
+
+</div>

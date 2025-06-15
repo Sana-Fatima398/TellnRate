@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Review_Rating</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+
+        .navbar-nav .nav-link {
+            color: white;
+        }
+
+        .custom-row {
+            height: 300px;
+            min-height: 200px;
+        }
+
+        .custom-col {
+            width: 150px;
+        }
+
+        .custom-icon {
+            font-size: 50px;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        @@font-face {
+  font-family: 'KingRamba';
+  src: url('/fonts/KingRimba.ttf') format('truetype');
+}
+
+.word-logo {
+  font-family: 'KingRamba', sans-serif;
+  font-size: 45px;
+    line-height: 1;
+  letter-spacing:3px;
+}
+
+    </style>
+</head>
+<body class="bg-dark text-light">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow  text-light">
+            <div class="container-fluid">
+                <a class="navbar-brand word-logo text-success  ms-4 mt-1 me-5" asp-area="" asp-controller="Home" asp-action="Index">TellnRate</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                      
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Content" asp-action="BrowseMovies">Browse Movies</a>
+                        </li>
+                       
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Content" asp-action="Favorite">Favorites</a>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+
+        <main role="main" class="pb-3">
+        @RenderBody()
+        </main>
+
+
+    <footer class="mt-5 border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - Review_Rating - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="~/lib/microsoft-signalr/signalr.js"></script>
+    <script src="~/js/CommentSection.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
