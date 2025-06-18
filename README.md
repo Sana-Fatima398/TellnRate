@@ -42,7 +42,7 @@ A fully functional web platform for reviewing and rating entertainment content. 
 
 ---
 
-## 🛠️ Tech Stack *(suggested to add if known)*
+## 🛠️ Tech Stack 
 
 - **Frontend**: HTML, CSS, JavaScript / Bootstrap
 - **Backend**: .NET 
